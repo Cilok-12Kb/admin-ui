@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-function PostCard(props) {
-  const { id, userId, title, body } = props;
+function PostCard({ id, userId, title, body }) {
   const [clicked, setClicked] = useState(false);
 
   return (
@@ -15,20 +14,29 @@ function PostCard(props) {
         hover:scale-105
         hover:shadow-lg
         hover:border hover:border-defaultBlack
-        hover:bg-special-red/10"
+        hover:bg-special-red/10
+      "
     >
-      <h2 className="text-xl font-semibold text-defaultBlack text-center mb-3">
+      {/* ===== TITLE ===== */}
+      <h2 className="text-xl font-semibold text-defaultBlack text-center mb-3 line-clamp-2">
         {title}
       </h2>
 
-      <p className="text-gray-01 text-center flex-1">
+      {/* ===== BODY ===== */}
+      <p className="text-gray-01 text-center flex-1 text-sm line-clamp-4">
         {body}
       </p>
 
+      {/* ===== OPTIONAL INFO ===== */}
+      <div className="text-xs text-gray-02 mt-3 text-center">
+        User ID: {userId} | Post ID: {id}
+      </div>
+
+      {/* ===== BUTTON ===== */}
       <button
         onClick={() => setClicked(true)}
         className={`
-          mt-4 w-full py-2 rounded-md text-white
+          mt-4 w-full py-2 rounded-md text-white font-medium
           transition-all duration-300
 
           ${

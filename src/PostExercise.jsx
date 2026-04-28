@@ -1,22 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PostCard from "./PostCard";
-import { getPosts } from "./Services";
+import postsData from "/src/assets/postsData.js";
 
 function PostExercise() {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const postData = await getPosts();
-        setPosts(postData);
-      } catch (error) {
-        console.error("Gagal ambil posts:", error.message);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  const [posts] = useState(postsData);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -28,6 +15,8 @@ function PostExercise() {
         {posts.map((post) => (
           <PostCard
             key={post.id}
+            id={post.id}
+            userId={post.userId}
             title={post.title}
             body={post.body}
           />
