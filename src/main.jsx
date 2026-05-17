@@ -2,10 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import Exercise from './PostExercise.jsx'
+import Exercise from './latihan/PostExercise.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Exercise />
+    <App />
   </StrictMode>,
 )
