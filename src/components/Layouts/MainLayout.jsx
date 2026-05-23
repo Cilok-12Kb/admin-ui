@@ -1,6 +1,8 @@
 import React from "react"; 
 import Logo from "../Elements/Logo";
 import Input from "../Elements/Input";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Icon from "../Elements/Icon";
 
 function MainLayout(props) {
   const { children } = props;
@@ -13,19 +15,23 @@ function MainLayout(props) {
                     <div className="mb-10">
                         <Logo variant="secondary"/>
                     </div>
-                    <div className="flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md">
-                        <div className="mx-auto sm:mx-0">O</div>
-                        <div className="ms-3 hidden sm:block">Overview</div>
-                    </div>
-                    <div className="flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md">
-                        <div className="mx-auto sm:mx-0">B</div>
-                        <div className="ms-3 hidden sm:block">Balances</div>
-                    </div>
-                    <div className="flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md">
-                        <div className="mx-auto sm:mx-0">T</div>
-                        <div className="ms-3 hidden sm:block">Transactions</div>
-                    </div>
-                    </div>
+                    <nav>
+                        <div className="flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md">
+                            <div className="mx-auto sm:mx-0">
+                                <Icon.Overview />
+                            </div>
+                            <div className="ms-3 hidden sm:block">Overview</div>
+                        </div>
+                        <div className="flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md">
+                            <div className="mx-auto sm:mx-0">B</div>
+                            <div className="ms-3 hidden sm:block">Balances</div>
+                        </div>
+                        <div className="flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md">
+                            <div className="mx-auto sm:mx-0">T</div>
+                            <div className="ms-3 hidden sm:block">Transactions</div>
+                        </div>
+                    </nav>
+                </div>
                 <div>
                     <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md">
                         <div className="mx-auto sm:mx-0">L</div>
@@ -50,7 +56,9 @@ function MainLayout(props) {
 			            <div className="text-gray-03 hidden sm:block">May 19, 2023</div> 
                     </div>
 			        <div className="flex items-center">
-                        <div className="me-10">Icon</div> 
+                        <div className="me-10">
+                            <NotificationsIcon className="text-gray-01 scale-110"/>
+                        </div> 
 			            <Input backgroundColor="bg-white" border="border-white"/> 
                     </div>
                 </header>
