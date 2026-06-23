@@ -36,7 +36,7 @@ function FormSignIn() {
                 label = "Password"
                 id = "password"
                 type = "password"
-                placeholder = "••••••••••••"
+                placeholder = "*************"
                 name = "passsword"
               />
             </div>
