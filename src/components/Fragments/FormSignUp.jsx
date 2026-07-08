@@ -1,60 +1,78 @@
 import React from 'react'
 import LabeledInput from '../Elements/LabeledInput'
-import CheckBox from '../Elements/CheckBox'
 import Button from '../Elements/Button'
 import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-function FormSignIn() {
+const SignUpSchema = Yup.object().shape({
+  name: Yup.string().required("Nama wajib diisi"),
+  email: Yup.string().email("Email tidak valid").required("Email wajib diisi"),
+  password: Yup.string().min(6, "Password minimal 6 karakter").required("Password wajib diisi"),
+});
+
+function FormSignUp({ onSubmit }) {
   return (
     <>
-        {/* form start */}
         <div className="mt-8">
           <div className="flex justify-center font-poppins tracking-wide font-black text-xl">
-            <span className="mb-8 font-body">Create an account</span>
+            <span className="mb-8 font-body dark:text-gray-200">Create an account</span>
           </div>
-          <form action="">
-            <div className="mb-6">
-              <LabeledInput
-                label = "Name"
-                id = "name"
-                type  = "name"
-                placeholder = "Tazir Rahman"
-                name = "name"
-              />
-            </div>
-            <div className="mb-6">
-              <LabeledInput
-                label = "Email Address"
-                id = "email"
-                type  = "email"
-                placeholder = "hello@example.com"
-                name = "email"
-              />
-            </div>
-            <div className="mb-6">
-              <LabeledInput
-                label = "Password"
-                id = "password"
-                type = "password"
-                placeholder = "*************"
-                name = "passsword"
-              />
-            </div>
-            <div className="mb-3 text-sm">
-              <span className="text-gray-03">By continuing, you agree to our</span>
-              <span className="text-primary ms-1">terms of service.</span>
-            </div>
-              <Button>Sign Up</Button>
-          </form>
+
+          <Formik
+            initialValues={{ name: "", email: "", password: "" }}
+            validationSchema={SignUpSchema}
+            onSubmit={async (values, { setSubmitting }) => {
+              try {
+                await onSubmit(values.name, values.email, values.password);
+              } finally {
+                setSubmitting(false);
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <div className="mb-6">
+                  <Field name="name">
+                    {({ field }) => (
+                      <LabeledInput {...field} id="name" type="text" label="Name" placeholder="Tazir Rahman" />
+                    )}
+                  </Field>
+                  <ErrorMessage name="name" component="p" className="text-red-500 text-xs mt-1" />
+                </div>
+
+                <div className="mb-6">
+                  <Field name="email">
+                    {({ field }) => (
+                      <LabeledInput {...field} id="email" type="email" label="Email Address" placeholder="hello@example.com" />
+                    )}
+                  </Field>
+                  <ErrorMessage name="email" component="p" className="text-red-500 text-xs mt-1" />
+                </div>
+
+                <div className="mb-6">
+                  <Field name="password">
+                    {({ field }) => (
+                      <LabeledInput {...field} id="password" type="password" label="Password" placeholder="*************" />
+                    )}
+                  </Field>
+                  <ErrorMessage name="password" component="p" className="text-red-500 text-xs mt-1" />
+                </div>
+
+                <div className="mb-3 text-sm">
+                  <span className="text-gray-03">By continuing, you agree to our</span>
+                  <span className="text-primary ms-1">terms of service.</span>
+                </div>
+
+                <Button>{isSubmitting ? "Loading..." : "Register"}</Button>
+              </Form>
+            )}
+          </Formik>
         </div>
-        {/* form end */}
-		{/* teks start */}
         <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
           <div className="border border-gray-05 w-full"></div>
           <div className="px-2 bg-special-mainBg absolute"> or sign up with</div>
         </div>
-        {/* teks end */}
-        {/* sign in with google start */}
         <div className="mb-8">
           <Button type="button" variant="secondary">
             <span className="flex items-center justify-center">
@@ -84,19 +102,16 @@ function FormSignIn() {
                 </svg>
                     Continue with Google
             </span>
-        </Button>
+          </Button>
         </div>
-        {/* sign in with google end */}
-        {/* link start */}
         <div className="text-sm flex justify-center">
           <span className="text-gray-03">Already have an account?</span>
           <Link to="/login" className="text-primary font-bold ms-1">
             Sign in here
           </Link>
         </div>
-        {/* link end */}
     </>
   );
 }
 
-export default FormSignIn;
+export default FormSignUp;

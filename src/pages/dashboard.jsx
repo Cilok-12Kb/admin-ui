@@ -9,26 +9,26 @@ import CardStatistic from '../components/Fragments/CardStatistic'
 import CardExpenseBeakdown from '../components/Fragments/CardExpenseBeakdown'
 import {
   transactions,
-  bills,
-  expensesBreakdowns,
   balances,
-  goals,
   expensesStatistics
 } from '../data'
-import { goalService } from '../services/dataService'
+import { billService, goalService } from '../services/dataService'
+import { expensesService } from '../services/dataService'
 import { AuthContext } from '../context/authContext'
 import AppSnackbar from '../components/Elements/AppSnackbar'
 
 function dashboard() {
   const [goals, setGoals] = useState({});
-  const { logout } =useContext(AuthContext);
+  const [bills, setBills] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const { logout } = useContext(AuthContext);
 
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
-  }); 
-  
+  });
+
   const handleCloseSnackbar = () => {
     setSnackbar((prev) => ({ ...prev, open: false }));
   };
@@ -43,17 +43,34 @@ function dashboard() {
         message: "Gagal mengambil data goals",
         severity: "error",
       });
-      if (err.status === 401) {
-        logout();
-      }
+      if (err.status === 401) logout();
     }
   };
 
+  const fetchBills = async () => {
+    try {
+      const data = await billService();
+      setBills(data);
+    } catch (err) {
+      if (err.status === 401) logout();
+    }
+  };
+
+  const fetchExpenses = async () => {
+    try {
+      const data = await expensesService();
+      setExpenses(data);
+    } catch (err) {
+      if (err.status === 401) logout();
+    }
+  };
+
+  // cukup satu useEffect - sebelumnya fetchGoals() dipanggil 2x karena ada 2 useEffect terpisah
   useEffect(() => {
     fetchGoals();
+    fetchBills();
+    fetchExpenses();
   }, []);
-  
-  console.log(goals);
 
   return (
     <>
@@ -75,7 +92,7 @@ function dashboard() {
             <CardStatistic data={expensesStatistics}/>
           </div>
           <div className="sm:col-span-8">
-            <CardExpenseBeakdown data={expensesBreakdowns}/>
+            <CardExpenseBeakdown data={expenses}/>
           </div>
         </div>
 

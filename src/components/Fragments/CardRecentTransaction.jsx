@@ -32,7 +32,7 @@ function CardRecentTransaction(props) {
                 </button>
               ))}
             </div>
-			{filteredData.map((item) => (
+			      {filteredData.map((item) => (
               <div key={item.id} className="flex justify-between my-6">
                 <div className="flex">
                   <div className="bg-special-bg text-gray-02 px-3 rounded-lg flex flex-col place-content-center">

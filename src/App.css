@@ -6,6 +6,8 @@ html {
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-body: "Inter", sans-serif;
   --font-poppins: "Montserrat", sans-serif;
@@ -45,4 +47,50 @@ html {
 
 .theme-brown {
   --color-primary: #8b4513;
+}
+
+.dark {
+  color-scheme: dark;
+  --color-special-mainBg: #14171c;
+}
+
+.dark .bg-special-bg {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.dark .bg-special-bg2 {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .shadow-xl {
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dark .text-black {
+  color: #f3f3f3 !important;
+}
+
+.dark .bg-white {
+  background-color: #1f242b !important;
+  color: #f3f3f3;
+}
+
+.dark .border-gray-05 {
+  border-color: #374151 !important;
+}
+
+.dark .text-gray-02,
+.dark .text-gray-03 {
+  color: #b5b5b5 !important;
+}
+
+.dark input {
+  background-color: #1f242b;
+  color: #ffffff;
+  border-color: #374151;
+}
+
+.dark input::placeholder {
+  color: #9ca3af;
 }

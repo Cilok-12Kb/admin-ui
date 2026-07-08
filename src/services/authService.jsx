@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://jwt-auth-eight-neon.vercel.app"; // URL backend
+const API_URL = "https://jwt-auth-eight-neon.vercel.app";
 
 export const loginService = async (email, password) => {
   try {
@@ -32,5 +32,19 @@ export const logoutService = async () => {
       status: error.response?.status,
       msg: error.response?.data?.msg,
     };
+  }
+};
+
+export const registerService = async (name, email, password) => {
+  try {
+    const response = await axios.post(`${API_URL}/register`, {
+      name,
+      email,
+      password,
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { msg: "Register gagal" };
   }
 };

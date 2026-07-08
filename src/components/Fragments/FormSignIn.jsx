@@ -15,7 +15,6 @@ const SignInSchema = Yup.object().shape({
 function FormSignIn({ onSubmit }) {
   return (
     <>
-        {/* form start */}
         <div className="mt-16">
           <Formik
             initialValues={{
@@ -35,7 +34,6 @@ function FormSignIn({ onSubmit }) {
             {({ isSubmitting }) => (
               <div>
                 <Form>
-                  {/* EMAIL */}
                   <div className="mb-6">
                     <Field name="email">
                       {({ field }) => (
@@ -55,7 +53,6 @@ function FormSignIn({ onSubmit }) {
                     />  
                   </div>
 
-                  {/* PASSWORD */}
                   <div className="mb-6">
                     <Field name="password">
                       {({ field }) => (
@@ -75,7 +72,6 @@ function FormSignIn({ onSubmit }) {
                     />   
                   </div>
 
-                  {/* CHECKBOX */}
                   <div className="mb-3">
                     <Field name="status">
                       {({ field }) => (
@@ -89,21 +85,16 @@ function FormSignIn({ onSubmit }) {
                       )}
                     </Field>
                   </div>
-                  {/* BUTTON */}
                   <Button>{isSubmitting ? "Loading..." : "Login"}</Button> 
                 </Form>
               </div>
             )}
           </Formik>
         </div>
-        {/* form end */}
-		    {/* teks start */}
         <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
           <div className="border border-gray-05 w-full"></div>
           <div className="px-2 bg-special-mainBg absolute"> or sign in with</div>
         </div>
-        {/* teks end */}
-        {/* sign in with google start */}
         <div className="mb-8">
           <Button type="button" variant="secondary">
             <span className="flex items-center justify-center">
@@ -148,14 +139,14 @@ function FormSignIn({ onSubmit }) {
             </span>
         </Button>
         </div>
-        {/* sign in with google end */}
-        {/* link start */}
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center gap-2">
           <Link to="/register" className="text-primary text-sm font-bold">
             Create an account
           </Link>
+          <span className="text-gray-03 text-sm cursor-pointer">
+            Forgot Password
+          </span>
         </div>
-        {/* link end */}
     </>
   );
 }
